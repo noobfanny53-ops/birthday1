@@ -290,11 +290,11 @@ html,body{
     </div>
 
     <div class="sub-page" id="subPage3">
-      <div class="scroll-combine-container">
+      <div class="scroll-combine-container" id="scrollBox3">
         <div class="cowok-frame">
           <img src="img/image2.jpg" alt="Foto 2">
         </div>
-        <p class="wish-text">sekali lagi selamat menjalani usia 20 tahun!!, makin ganteng yaa, entah seberat apapun beban di pundakmu dan entah seberisik apapun di kepala kamu. semoga tuhan mampukan dan mudahkan disetiap prosesmu 🥰</p>
+        <p class="wish-text" id="typingText3"></p>
       </div>
     </div>
 
@@ -326,6 +326,8 @@ jangan pernah lupa sama aku yaa, kapanpun kamu butuh aku aku pasti selalu ada bu
 tetap jadi realvin yang aku kenal yaa, Thank you for having been a part of my life. 🤍
 
 to my fav ex, from nana comell`;
+
+const page3TextContent = `sekali lagi selamat menjalani usia 20 tahun!!, makin ganteng yaa, entah seberat apapun beban di pundakmu dan entah seberisik apapun di kepala kamu. semoga tuhan mampukan dan mudahkan disetiap prosesmu 🥰`;
 
 /* ===== INTERACTION STRATEGY FOR AUTOPLAY ===== */
 function startEverything() {
@@ -409,9 +411,12 @@ function changeSubPage(direction){
     return;
   }
   
-  // Memicu efek mengetik ketika berpindah ke halaman 2
+  // Memicu efek mengetik ketika berpindah ke halaman 2 atau 3
   if(currentSubPage === 1 && direction === 1){
     setTimeout(typeMessage, 350);
+  }
+  if(currentSubPage === 2 && direction === 1){
+    setTimeout(typeMessagePage3, 350);
   }
   
   // Jika sudah di halaman terakhir (halaman 4) dan menekan Next, reload web
@@ -441,6 +446,24 @@ function typeMessage(){
   function typing(){
     if(i < wishTextContent.length){
       el.textContent += wishTextContent[i];
+      box.scrollTop = box.scrollHeight;
+      i++;
+      setTimeout(typing, 55);
+    } else {
+      confetti({particleCount:45,spread:45,origin:{y:0.7},colors:['#b39ddb','#7e57c2','#e1bee7']});
+    }
+  }
+  typing();
+}
+
+function typeMessagePage3(){
+  const el = document.getElementById('typingText3');
+  const box = document.getElementById('scrollBox3');
+  if(!el || el.textContent !== '') return;
+  let i = 0;
+  function typing(){
+    if(i < page3TextContent.length){
+      el.textContent += page3TextContent[i];
       box.scrollTop = box.scrollHeight;
       i++;
       setTimeout(typing, 55);
